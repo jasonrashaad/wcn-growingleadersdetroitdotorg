@@ -6,11 +6,11 @@
     <title>Coming Soon – What Comes Next? LLC</title>
     <style>
       :root {
-        --primary: #216869;
-        --accent1: #49a078;
-        --accent2: #9cc5a1;
-        --text: #dce1de;
-        --black: #000000;
+        --wcn-primary: #216869;
+        --wcn-accent1: #49a078;
+        --wcn-accent2: #9cc5a1;
+        --wcn-text: #dce1de;
+        --wcn-black: #000000;
       }
 
       * {
@@ -19,65 +19,355 @@
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-          Helvetica, Arial, sans-serif;
-        background-color: var(--black);
-        color: var(--text);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin: 0;
+        overflow-x: hidden;
+      }
+
+      /* Animation Keyframes */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes glow {
+        0%, 100% {
+          box-shadow: 0 0 20px rgba(33, 104, 105, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(33, 104, 105, 0.5);
+        }
+      }
+
+      /* Main Container */
+      .main-container {
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--wcn-primary) 0%, var(--wcn-accent1) 100%);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Watermark Background */
+      .watermark-background {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .watermark-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(33, 104, 105, 0.05);
+        backdrop-filter: blur(1px);
+      }
+
+      .watermark-logo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(12deg) scale(1.5);
+        opacity: 0.05;
+        mix-blend-mode: soft-light;
+        background-image: url('logo.png');
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      /* Content Container */
+      .content-container {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        width: 100%;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      @media (min-width: 768px) {
+        .content-container {
+          grid-template-columns: 1fr 1fr;
+          text-align: left;
+        }
+      }
+
+      /* Logo Section */
+      .logo-section {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem;
+        animation: fadeInUp 0.8s ease-out;
       }
 
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: var(--primary);
+      .logo-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        animation: float 3s ease-in-out infinite;
       }
 
-      p {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
-        color: var(--text);
-        max-width: 600px;
-      }
-
-      .cta {
-        background-color: var(--primary);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 999px;
-        font-size: 1rem;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-      }
-
-      .cta:hover {
-        background-color: var(--accent1);
-      }
-
-      footer {
+      .logo-container::before {
+        content: '';
         position: absolute;
-        bottom: 1rem;
-        font-size: 0.875rem;
-        color: #666;
+        inset: -10px;
+        background: linear-gradient(45deg, var(--wcn-accent2), var(--wcn-accent1));
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: glow 2s ease-in-out infinite;
+        z-index: -1;
+      }
+
+      .logo {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 3px solid rgba(220, 225, 222, 0.2);
+        padding: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.05);
+        border-color: rgba(220, 225, 222, 0.4);
+      }
+
+      /* Text Section */
+      .text-section {
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+      }
+
+      .main-heading {
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--wcn-text), var(--wcn-accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+      }
+
+      .subtitle {
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        color: var(--wcn-text);
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        font-weight: 500;
+      }
+
+      .by-line {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        color: var(--wcn-accent2);
+        margin-bottom: 3rem;
+        font-weight: 600;
+      }
+
+      /* CTA Button */
+      .cta-container {
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+      }
+
+      .cta-button {
+        position: relative;
+        display: inline-block;
+        text-decoration: none;
+        overflow: hidden;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+
+      .cta-button::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(45deg, var(--wcn-accent2), var(--wcn-accent1));
+        border-radius: 50px;
+        opacity: 0.75;
+        transition: opacity 0.3s ease;
+      }
+
+      .cta-button:hover::before {
+        opacity: 1;
+      }
+
+      .cta-content {
+        position: relative;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(220, 225, 222, 0.2);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        color: var(--wcn-text);
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .cta-button:hover .cta-content {
+        transform: translateY(-2px);
+        border-color: rgba(220, 225, 222, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Floating Elements */
+      .floating-elements {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      .floating-element {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: var(--wcn-accent2);
+        border-radius: 50%;
         opacity: 0.6;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .floating-element:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .floating-element:nth-child(2) {
+        top: 60%;
+        right: 15%;
+        animation-delay: 1s;
+      }
+
+      .floating-element:nth-child(3) {
+        bottom: 30%;
+        left: 20%;
+        animation-delay: 2s;
+      }
+
+      .floating-element:nth-child(4) {
+        top: 40%;
+        right: 25%;
+        animation-delay: 3s;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 767px) {
+        .content-container {
+          gap: 2rem;
+          padding: 1rem;
+        }
+
+        .logo-container {
+          width: 150px;
+          height: 150px;
+        }
+
+        .main-heading {
+          margin-bottom: 1rem;
+        }
+
+        .subtitle {
+          margin-bottom: 1.5rem;
+        }
+
+        .by-line {
+          margin-bottom: 2rem;
+        }
+      }
+
+      /* Focus States for Accessibility */
+      .cta-button:focus-visible {
+        outline: 3px solid var(--wcn-accent2);
+        outline-offset: 4px;
       }
     </style>
   </head>
   <body>
-    <h1>Coming Soon...</h1>
-    <p>
-      What Comes Next? LLC is building something new—tools for real change,
-      designed with privacy, grit, and lived experience in mind. This isn't just
-      another landing page. It's a signal.
-    </p>
-    <a href="#" class="cta">Get Notified</a>
-    <footer>Built by What Comes Next? LLC</footer>
+    <main class="main-container">
+      <!-- Watermark Background -->
+      <div class="watermark-background">
+        <div class="watermark-overlay"></div>
+        <div class="watermark-logo"></div>
+      </div>
+
+      <!-- Floating Elements -->
+      <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="content-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+          <div class="logo-container">
+            <img src="logo.png" alt="What Comes Next? LLC Logo" class="logo" />
+          </div>
+        </div>
+
+        <!-- Text Section -->
+        <div class="text-section">
+          <h1 class="main-heading">Coming Soon...</h1>
+          <p class="subtitle">Something extraordinary is in development.</p>
+          <p class="by-line">by What Comes Next?</p>
+          
+          <div class="cta-container">
+            <a href="https://whatcomesnextllc.ai" class="cta-button" target="_blank" rel="noopener noreferrer">
+              <div class="cta-content">
+                Visit Our Company Site
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
 
